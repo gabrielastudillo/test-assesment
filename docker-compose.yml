@@ -1,5 +1,16 @@
 version: '3.2'
 services:
+
+  security:
+    build: ./APP-service
+    ports:
+     - "8080:8080"
+    depends_on:
+     - db
+    environment:
+     - DATABASE_HOST=db
+    volumes:
+     - ./APP-service/src
   db:
     image: 'mysql:5.7'
     restart: always
