@@ -1,20 +1,16 @@
-# start from base
-FROM node:8-alpine
+FROM node:12
 
-# make the directory on the Alpine Linux machine
-RUN mkdir -p /usr/src/app
-
-# set working directory
+# Create app directory
 WORKDIR /usr/src/app
 
-# copy the application code to the working directory
-COPY . .
+# Install app dependencies
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
+COPY package*.json ./
 
-# fetch app specific dependencies
 RUN npm install
 
-# expose port
-EXPOSE 3000
+# Bundle app source
+COPY . .
 
-# start run with this command
+EXPOSE 8080
 CMD [ "node", "server.js" ]
